@@ -1,0 +1,373 @@
+<!DOCTYPE HTML>
+<!--
+	Instale o Archlinux facilmente.
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Instale o Archlinux facilmente.</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+						<span class="logo"><img src="images/logo.svg" alt="" /></span>
+						<h1>Instale o Archlinux facilmente.</h1>
+						<p>Nilsonlinux<br />
+						Atualizado 2017 Rolling <a href="https://twitter.com/Nilsonlinux">@Nilsonlinux</a> On Twitter
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul>
+							<li><a href="#intro" class="active">Obter e gravar a iso</a></li>
+							<li><a href="#first">Particionamento e configuração do disco (HD)</a></li>
+							
+							<li><a href="#cta">Ambiente gráfico e Personalização</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Introduction -->
+							<section id="intro" class="main">
+								<div class="spotlight">
+									<div class="content">
+										<header class="major">
+											<h2>Obtendo a iso e gravando em um CD/DVD ou Pendrive</h2>
+										</header>
+										<p>Antes de tudo vamos encaminhar você para o site oficial do Archlinux para você baixar a iso oficial do sistema.
+										<a href="https://www.archlinux.org/download/">Site oficial para download da iso.<br />
+										</a>Após o download da iso vamos criar o nosso cd/dvd de instalação do archlinux.<br />
+										Se você já possue um sistema linux instalado aconselho a criar a midia de instalação pelo nosso querido terminal caso seja um pendrive.<br />				
+										1º passo: identificar o dispositivo.<br />
+										# fdisk -l<br />
+										Seu pendrive deve aparecer na lista, de acordo com sua capacidade, exemplo: 8gb deve ter uns 7.5GB como no meu caso.<br />
+										
+										/dev/sdb; ou
+										/dev/sdc (no caso de você usar um hd externo ou mais de um pendrive)<br />
+										2º passo: formatar o dispositivo.<br />
+										# mkfs.vfat /dev/sdx -I<br />
+										O x representa a letra de teu dispositivo!<br />
+										3º passo: certifique-se do caminho da imagem .iso que você irá gravar. Se você está logado no terminal na sua pasta de usuário, dê o comando "ls". Ele irá mostrar se sua .iso já está nesta pasta, se já estiver, prossiga para o próximo passo.<br />
+										No 1º passo tu já identificou o dispositivo usb, no 2º tu o formatou, agora tu vais gravar a imagem para o mesmo destino, que deve ser o caminho abaixo:<br />
+										/dev/sdx<br />
+										Mais uma vez, lembrando que o x representa tua unidade a ser gravada.<br />
+
+										Comando dd de maneira simples e direta!<br />
+
+										# dd if=sua_imagem.iso of=/dev/sdx<br />
+										Aguarde a até o final do processo...<br />
+										<a href="https://www.vivaolinux.com.br/dica/Criar-um-pendrive-de-boot-do-Linux-Live-USB-via-terminal">Link utilizado para este feito acima esta aqui</a><br />
+										Se for gravar a iso em um cd ou dvd o linux ja possue várias opções. Eu que sou usuário do XFCE sempre usei o padrão dele. o Xfburn.<br />
+										<ul class="actions">
+
+										</ul>
+									</div>
+									<span class="image"><img src="images/logo.jpg" alt="" /></span>
+								</div>
+							</section>
+
+						<!-- First Section -->
+							<section id="first" class="main">
+								<header class="major">
+									<h2>Particionamento do disco (HD)e configuração do sistema/</h2>
+								</header>
+										<p>Primeiramente precisamos checar como nosso disco ja está particionado.<br />
+
+Utilizaremos o cfdisk.<br />
+#cfdisk<br />
+
+Primeira partição a ser criada.<br />
+Create Primary partition<br />
+
+Em new você adiciona a quantidade de memoria que você precisará para sua partição Raiz. Ex: 20GB e dê Enter.<br />
+A primeira partição<br />
+(/raiz) marque como inicializável. (Bootavel) Escolha Primary.<br />
+Dê Enter.<br />
+
+Crie agora a Swap. (Memoria virtual)<br />
+Adicione o tamanho expecífico (Ex: 2GB) Dê Enter. Escolha Primary.<br />
+
+E por fim crie a partição Home. Onde ficarão seus arquivos pessoais. Não precisa expecificar o tamanho .Tecle enter para criar. E selecione Extended<br />
+
+No free space crie sua partição Home. E vai em Write e Yes para salvar e quit para sair.<br />
+
+Veja como ficou as partições com o comando<br />
+#fdisk-l<br />
+
+http://www.ostechnix.com/wp-content/uploads/2017/03/VirtualBox_Arch-Linux-2017_03_03_2017_18_57_35.png<br />
+
+Agora vamos formatar as partições.<br />
+
+#mkfs.ext4 /dev/sda1   (Para formatar nossa partição / Raiz)<br />
+#mkfs.ext4 /dev/sda5    (Para formatar nossa partição /home )<br />
+
+#mkswap /dev/sda2   (Para formatar nossa Swap)<br />
+#swapon /dev/sda2   (Para ativar a Swap)<br />
+
+Agora é a hora de instalarmos a base do sistema do nosso archlinux.<br />
+Precisaremos montar as partições para que possa receber os arquivos do sistema base. <br />
+
+#mount /dev/sda1 /mnt (Montar a partição raiz)<br />
+#mkdir /mnt/home  (Criar o nosso diretório Home)<br />
+#mount /dev/sda5 /mnt/home (Montar a partição Home)<br />
+
+Agora que ja está tudo formatado e montado. Vamos a parte de instalação do sistema base. <br />
+#pacstrap /mnt base base-devel<br />
+
+http://www.ostechnix.com/wp-content/uploads/2017/03/VirtualBox_Arch-Linux-2017_03_03_2017_19_07_13.png<br />
+
+Após o downloads do sistema base precisamos criar o arquivo fstab.<br />
+#genfstab /mnt >> /mnt/etc/fstab<br />
+
+Para verificar o arquivo criado rode o comando .<br />
+#cat /mnt/etc/fstab<br />
+
+http://www.ostechnix.com/wp-content/uploads/2017/03/VirtualBox_Arch-Linux-2017_03_03_2017_19_33_53.png<br />
+
+Agora é hora de configurar a base de nosso sistema que acabamos de baixar.<br />
+#arch-chroot /mnt /bin/bash<br />
+
+Uma vez executado esse comando passaremos para dentro do nosso sistema e não mais o live-CD<br />
+
+Vamos configurar a linguagem do nosso sistema. <br />
+#nano /etc/locale.gen<br />
+
+Note que todos estão com #. Descomente pt_BR.UTF8 UTF8 retirando o #<br />
+Salve com Ctrl+O e saia com Ctrl+X<br />
+
+Depois rode o comando.<br />
+#locale-gen
+http://www.ostechnix.com/wp-content/uploads/2017/03/VirtualBox_Arch-Linux-2017_03_03_2017_19_38_19.png<br />
+
+Agora vamos criar o arquivo de localização. <br />
+#nano /etc/locale.conf<br />
+e adicione <br />
+LANG=pt_BR.UTF-8   (Salve com Ctrl+O e saia com Ctrl+x)<br />
+
+Configurando fuso horário de seu sistema.<br />
+#ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime<br />
+#ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/timezone<br />
+
+Para validar use o comando<br />
+#hwclock --systohc --utc<br />
+
+Vamos agora criar o password do usuário root com o comando.<br />
+#passwd<br />
+Defina o password e repita.<br />
+
+Lembre-se que agora estamos dentro de nosso sistema instalado.<br />
+Precisaremos configurar novamente nossa conexão com a internet.<br />
+#nano /etc/hostname (altere o hostname para o nome que você desejar.)<br />
+
+Rode este comando para que sempre que inicializar o sistema seja executado suas configurações de rede. <br />
+#systemctl enable dhcpcd<br />
+
+Vamos agora instalar o GRUB;... Execute o comando.<br />
+#pacman -S grub<br />
+
+Vamos instalar com o comando. <br />
+#grub-install /dev/sda<br />
+#grub-mkconfig -o /boot/grub/grub.cfg<br />
+
+Agora precisaremos reiniciar o sistema. <br />
+#exit<br />
+#umount -R /mnt<br />
+#reboot<br />
+
+http://www.ostechnix.com/wp-content/uploads/2017/03/VirtualBox_Arch-Linux-2017_03_03_2017_19_49_32.png<br />
+
+Pronto. Sistema instalado com sucesso. <br />
+Logue no sistema com o usuário root e senha que você escolheu.<br />
+
+http://www.ostechnix.com/wp-content/uploads/2017/03/VirtualBox_Arch-Linux-2017_03_03_2017_19_50_22.png<br />
+
+Atualize seu sistema com o comando .<br />
+#pacman -Syu<br />
+
+http://www.ostechnix.com/wp-content/uploads/2016/02/Arch-Linux-2016-Running-Oracle-VM-VirtualBox_001-1.jpg<br />
+
+Configurando o Package manager.<br />
+#nano /etc/pacman.conf<br />
+
+Localize e descomente retirando o # em<br />
+[multilib]<br />
+Include = /etc/pacman.d/mirrorlist<br />
+
+#nano /etc/pacman.d/mirrorlist <br />
+
+Adicione no inicio dos servers <br /><br />
+## Brazil
+#Server = http://br.mirror.archlinux-br.org/$repo/os/$arch
+#Server = http://archlinux.c3sl.ufpr.br/$repo/os/$arch
+#Server = http://linorg.usp.br/archlinux/$repo/os/$arch
+#Server = http://pet.inf.ufsc.br/mirrors/archlinux/$repo/os/$arch
+#Server = http://archlinux.pop-es.rnp.br/$repo/os/$arch
+
+e descomente o que irá utilizar retirando o #<br />
+Salve com crtl+o e saia com ctrl+x<br />
+
+#pacman -Syy (Atualizar os repositórios)<br />
+
+http://www.ostechnix.com/wp-content/uploads/2016/02/root@server_007.jpg<br />
+
+Agora vamos criar o nosso usuário normal. <br />
+#useradd -m -g users -G wheel,storage,power -s /bin/bash NOME_USUÀRIO<br />
+
+Coloque seu usuário em NOME-USUÀRIO<br />
+
+Definir a senha pra seu usuário.<br />
+#passwd NOME_USUÀRIO<br />
+Digite a senha e repita. <br />
+
+Instalando o sudo. (Para administração de seu sistema)<br />
+#pacman -S sudo<br />
+
+Vamos adicionar seu nome de usuário ao arquivo sudoers para te dar poder sobre o sistema. <br />
+# EDITOR=/usr/bin/nano visudo<br />
+
+Localize e descomente  %wheel ALL=(ALL) ALL <br />
+E adicione SEU_USUÀRIO ALL=(ALL) ALL <br />
+Salve e saia.<br />
+
+http://www.ostechnix.com/wp-content/uploads/2016/02/root@server_008.jpg<br />
+
+Vamos instalar os utilitários de audio<br />
+#pacman -S alsa-utils pulseaudio pavucontrol<br />
+
+Agora vamos instalar o Xorg para poder instalar uma interface gráfica. <br />
+#pacman -S xorg-server xorg-xinit<br />
+#pacman -S xorg-twm xorg-xclock xterm<br />
+Instalar o driver de video:<br />
+#pacman -S mesa lib32-mesa xf86-video-intel vulkan-intel<br />
+									</li>
+							
+									</ul>
+								</footer>
+							</section>
+
+						
+								</ul>
+																<footer class="major">
+									<ul class="actions">
+										
+									</ul>
+								</footer>
+							</section>
+
+						<!-- Get Started -->
+							<section id="cta" class="main">
+								<header class="major">
+									<h2>Ambiente gráfico e personalização</h2>
+									<p>Instalando o XFCE4, LightDM e pacotes extras
+#pacman -S xfce4 xfce4-goodies lightdm lightdm-gtk-greeter networkmanager network-manager-applet<br />
+
+Habilite o LightDM<br />
+#systemctl enable lightdm<br />
+Habilite o NetworkManager<br />
+#systemctl enable NetworkManager<br />
+
+#reboot<br />
+
+Pronto............O resto é com você.<br /> 
+Se quer usar um browser leve eu indico o opera.<br />
+#pacman -S opera<br />
+
+Se quizer expandir suas opções de pacotes instale também o yaourt (repositórios dos usuários)<br />
+# nano /etc/pacman.conf<br />
+Adicione <br />
+[archlinuxfr]<br />
+SigLevel = Never
+Server = http://repo.archlinux.fr/$arch<br />
+
+Salve com ctrl+o e saia com ctrl+x<br />
+Pastas da home<br />
+pacman -S xdg-user-dirs<br />
+Depois basta rodar o seguinte comando no terminal:<br />
+xdg-user-dirs-update<br />
+
+#pacman -Sy yaourt<br />
+#yaourt xfce4-hardware-monitor-plugin<br />
+#sudo pacman -S mpd mpc ncmpcpp<br />
+==> Configuring MPD <==<br />
+You need to create a /home/username/.mpd folder first<br />
+
+$ mkdir .mpd<br />
+Then Create Playlist Folder<br />
+$ mkdir -p ~/.mpd/playlists<br />
+Then create the required files that you will need to include in the mpd config file<br />
+$ touch ~/.mpd/{mpd.db,mpd.log,mpd.pid,mpdstate}<br />
+https://pastebin.com/wz69BL8T<br />
+$ sudo nano .mpdconf<br />
+
+https://pastebin.com/YLZ5Rjj3<br />
+$ sudo nano /etc/mpd.conf<br />
+
+http://dotshare.it/category/mpd/ncmpcpp/<br />
+http://ncmpcpp.url.ph/</p><br />
+								</header>
+								<footer class="major">
+									<ul class="actions">
+										
+									
+									</ul>
+								</footer>
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<h2>Nilsonlinux</h2>
+							<p>Uma pequena colaboração pra comunidade archlinux.</p>
+							<ul class="actions">
+								
+							</ul>
+						</section>
+						<section>
+							<h2>Localização</h2>
+							<dl class="alt">
+								<dt>Centro</dt>
+								<dd>Maranhão; BR</dd>
+								<dt>Phone</dt>
+								<dd>(98) 98199-3663 * (98) 3653-9082</dd>
+								<dt>Email</dt>
+								<dd><a href="#">nilsonlinux@gmail.com</a></dd>
+							</dl>
+							<ul class="icons">
+								<li><a href="#" class="icon fa-twitter alt"><span class="label">Twitter</span></a></li>
+								<li><a href="#" class="icon fa-facebook alt"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon fa-instagram alt"><span class="label">Instagram</span></a></li>
+								<li><a href="#" class="icon fa-github alt"><span class="label">GitHub</span></a></li>
+								<li><a href="#" class="icon fa-dribbble alt"><span class="label">Dribbble</span></a></li>
+							</ul>
+						</section>
+						<p class="copyright">&copy; Untitled. Design: <a href="#">Archlinux</a>.</p>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
