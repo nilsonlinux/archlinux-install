@@ -232,9 +232,6 @@ Definir a senha pra seu usuário.<br />
 #passwd NOME_USUÀRIO<br />
 Digite a senha e repita. <br />
 
-Instalando o sudo. (Para administração de seu sistema)<br />
-#pacman -S sudo<br />
-
 Vamos adicionar seu nome de usuário ao arquivo sudoers para te dar poder sobre o sistema. <br />
 # EDITOR=/usr/bin/nano visudo<br />
 
@@ -249,9 +246,9 @@ Vamos instalar os utilitários de audio<br />
 
 Agora vamos instalar o Xorg para poder instalar uma interface gráfica. <br />
 #pacman -S xorg-server xorg-xinit<br />
-#pacman -S xorg-twm xorg-xclock xterm<br />
+#pacman -S xorg-twm xorg-xclock xterm #(Opicional)<br />
 Instalar o driver de video:<br />
-#pacman -S mesa lib32-mesa xf86-video-intel vulkan-intel<br />
+#pacman -S mesa lib32-mesa xf86-video-intel<br />
 									</li>
 							
 									</ul>
