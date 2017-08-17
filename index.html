@@ -57,14 +57,14 @@
 										</a>Após o download da iso vamos criar o nosso cd/dvd de instalação do archlinux.<br />
 										Se você já possue um sistema linux instalado aconselho a criar a midia de instalação pelo nosso querido terminal caso seja um pendrive.<br />				
 										1º passo: identificar o dispositivo.<br />
-										# fdisk -l<br />
+										# <b>fdisk -l</b><br />
 
 										Seu pendrive deve aparecer na lista, de acordo com sua capacidade, exemplo: 8gb deve ter uns 7.5GB como no meu caso.<br />
 										
 										/dev/sdb; ou
 										/dev/sdc (no caso de você usar um hd externo ou mais de um pendrive)<br />
 										2º passo: formatar o dispositivo.<br />
-										# mkfs.vfat /dev/sdx -I<br />
+										# <b>mkfs.vfat /dev/sdx</b> -I<br />
 										O x representa a letra de teu dispositivo!<br />
 										3º passo: certifique-se do caminho da imagem .iso que você irá gravar. Se você está logado no terminal na sua pasta de usuário, dê o comando "ls". Ele irá mostrar se sua .iso já está nesta pasta, se já estiver, prossiga para o próximo passo.<br />
 										No 1º passo tu já identificou o dispositivo usb, no 2º tu o formatou, agora tu vais gravar a imagem para o mesmo destino, que deve ser o caminho abaixo:<br />
@@ -73,7 +73,7 @@
 
 										Comando dd de maneira simples e direta!<br />
 
-										# dd if=sua_imagem.iso of=/dev/sdx<br />
+										# <b>dd if=sua_imagem.iso of=/dev/sdx</b><br />
 										Aguarde a até o final do processo...<br />
 										<a href="https://www.vivaolinux.com.br/dica/Criar-um-pendrive-de-boot-do-Linux-Live-USB-via-terminal">Link utilizado para este feito acima esta aqui</a><br />
 										Se for gravar a iso em um cd ou dvd o linux ja possue várias opções. Eu que sou usuário do XFCE sempre usei o padrão dele. o Xfburn.<br />
@@ -93,7 +93,7 @@
 										<p>Primeiramente precisamos checar como nosso disco ja está particionado.<br />
 
 Utilizaremos o cfdisk.<br />
-#cfdisk<br />
+#<b>cfdisk</b><br />
 
 Primeira partição a ser criada.<br />
 Create Primary partition<br />
@@ -111,87 +111,87 @@ E por fim crie a partição Home. Onde ficarão seus arquivos pessoais. Não pre
 No free space crie sua partição Home. E vai em Write e Yes para salvar e quit para sair.<br />
 
 Veja como ficou as partições com o comando<br />
-#fdisk-l<br />
+#<b>fdisk-l</b><br />
 
 http://www.ostechnix.com/wp-content/uploads/2017/03/VirtualBox_Arch-Linux-2017_03_03_2017_18_57_35.png<br />
 
 Agora vamos formatar as partições.<br />
 
-#mkfs.ext4 /dev/sda1   (Para formatar nossa partição / Raiz)<br />
-#mkfs.ext4 /dev/sda5    (Para formatar nossa partição /home )<br />
+#<b>mkfs.ext4</b> /dev/sda1   (Para formatar nossa partição / Raiz)<br />
+#<b>mkfs.ext4</b> /dev/sda5    (Para formatar nossa partição /home )<br />
 
-#mkswap /dev/sda2   (Para formatar nossa Swap)<br />
-#swapon /dev/sda2   (Para ativar a Swap)<br />
+#<b>mkswap /dev/sda2</b>   (Para formatar nossa Swap)<br />
+#<b>swapon /dev/sda2</b>   (Para ativar a Swap)<br />
 
 Agora é a hora de instalarmos a base do sistema do nosso archlinux.<br />
 Precisaremos montar as partições para que possa receber os arquivos do sistema base. <br />
 
-#mount /dev/sda1 /mnt (Montar a partição raiz)<br />
-#mkdir /mnt/home  (Criar o nosso diretório Home)<br />
-#mount /dev/sda5 /mnt/home (Montar a partição Home)<br />
+#<b>mount /dev/sda1 /mnt </b>(Montar a partição raiz)<br />
+#<b>mkdir /mnt/home</b>  (Criar o nosso diretório Home)<br />
+#<b>mount /dev/sda5 /mnt/home</b> (Montar a partição Home)<br />
 
 Agora que ja está tudo formatado e montado. Vamos a parte de instalação do sistema base. <br />
-#pacstrap /mnt base base-devel<br />
+#<b>pacstrap /mnt base base-devel</b><br />
 
 http://www.ostechnix.com/wp-content/uploads/2017/03/VirtualBox_Arch-Linux-2017_03_03_2017_19_07_13.png<br />
 
 Após o downloads do sistema base precisamos criar o arquivo fstab.<br />
-#genfstab /mnt >> /mnt/etc/fstab<br />
+#<b>genfstab /mnt >> /mnt/etc/fstab</b><br />
 
 Para verificar o arquivo criado rode o comando .<br />
-#cat /mnt/etc/fstab<br />
+#<b>cat /mnt/etc/fstab</b><br />
 
 http://www.ostechnix.com/wp-content/uploads/2017/03/VirtualBox_Arch-Linux-2017_03_03_2017_19_33_53.png<br />
 
 Agora é hora de configurar a base de nosso sistema que acabamos de baixar.<br />
-#arch-chroot /mnt /bin/bash<br />
+#<b>arch-chroot /mnt /bin/bash</b><br />
 
 Uma vez executado esse comando passaremos para dentro do nosso sistema e não mais o live-CD<br />
 
 Vamos configurar a linguagem do nosso sistema. <br />
-#nano /etc/locale.gen<br />
+#<b>nano /etc/locale.gen</b><br />
 
 Note que todos estão com #. Descomente pt_BR.UTF8 UTF8 retirando o #<br />
 Salve com Ctrl+O e saia com Ctrl+X<br />
 
 Depois rode o comando.<br />
-#locale-gen
+#<b>locale-gen</b>
 http://www.ostechnix.com/wp-content/uploads/2017/03/VirtualBox_Arch-Linux-2017_03_03_2017_19_38_19.png<br />
 
 Agora vamos criar o arquivo de localização. <br />
-#nano /etc/locale.conf<br />
+#<b>nano /etc/locale.conf</b><br />
 e adicione <br />
-LANG=pt_BR.UTF-8   (Salve com Ctrl+O e saia com Ctrl+x)<br />
+<b>LANG=pt_BR.UTF-8</b>   (Salve com Ctrl+O e saia com Ctrl+x)<br />
 
 Configurando fuso horário de seu sistema.<br />
 #ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime<br />
-#ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/timezone<br />
+#<b>ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/timezone</b><br />
 
 Para validar use o comando<br />
-#hwclock --systohc --utc<br />
+#<b>hwclock --systohc --utc</b><br />
 
 Vamos agora criar o password do usuário root com o comando.<br />
-#passwd<br />
+#<b>passwd</b><br />
 Defina o password e repita.<br />
 
 Lembre-se que agora estamos dentro de nosso sistema instalado.<br />
 Precisaremos configurar novamente nossa conexão com a internet.<br />
-#nano /etc/hostname (altere o hostname para o nome que você desejar.)<br />
+#<b>nano /etc/hostname</b> (altere o hostname para o nome que você desejar.)<br />
 
 Rode este comando para que sempre que inicializar o sistema seja executado suas configurações de rede. <br />
-#systemctl enable dhcpcd<br />
+#<b>systemctl enable dhcpcd</b><br />
 
 Vamos agora instalar o GRUB;... Execute o comando.<br />
-#pacman -S grub<br />
+#<b>pacman -S grub</b><br />
 
 Vamos instalar com o comando. <br />
-#grub-install /dev/sda<br />
-#grub-mkconfig -o /boot/grub/grub.cfg<br />
+#<b>grub-install /dev/sda</b><br />
+#<b>grub-mkconfig -o /boot/grub/grub.cfg</b><br />
 
 Agora precisaremos reiniciar o sistema. <br />
-#exit<br />
-#umount -R /mnt<br />
-#reboot<br />
+#<b>exit</b><br />
+#<b>umount -R /mnt</b><br />
+#<b>reboot</b><br />
 
 http://www.ostechnix.com/wp-content/uploads/2017/03/VirtualBox_Arch-Linux-2017_03_03_2017_19_49_32.png<br />
 
@@ -201,18 +201,18 @@ Logue no sistema com o usuário root e senha que você escolheu.<br />
 http://www.ostechnix.com/wp-content/uploads/2017/03/VirtualBox_Arch-Linux-2017_03_03_2017_19_50_22.png<br />
 
 Atualize seu sistema com o comando .<br />
-#pacman -Syu<br />
+#<b>pacman -Syu</b><br />
 
 http://www.ostechnix.com/wp-content/uploads/2016/02/Arch-Linux-2016-Running-Oracle-VM-VirtualBox_001-1.jpg<br />
 
 Configurando o Package manager.<br />
-#nano /etc/pacman.conf<br />
+#<b>nano /etc/pacman.conf</b><br />
 
-Localize e descomente retirando o # em<br />
+Localize e descomente retirando o <b>#</b> em<br />
 [multilib]<br />
 Include = /etc/pacman.d/mirrorlist<br />
 
-#nano /etc/pacman.d/mirrorlist <br />
+#<b>nano /etc/pacman.d/mirrorlist</b> <br />
 
 Adicione no inicio dos servers <br /><br />
 ## Brazil
@@ -225,21 +225,21 @@ Adicione no inicio dos servers <br /><br />
 e descomente o que irá utilizar retirando o #<br />
 Salve com crtl+o e saia com ctrl+x<br />
 
-#pacman -Syy (Atualizar os repositórios)<br />
+#<b>pacman -Syy</b> (Atualizar os repositórios)<br />
 
 http://www.ostechnix.com/wp-content/uploads/2016/02/root@server_007.jpg<br />
 
 Agora vamos criar o nosso usuário normal. <br />
-#useradd -m -g users -G wheel,storage,power -s /bin/bash NOME_USUÀRIO<br />
+#<b>useradd -m -g users -G wheel,storage,power -s /bin/bash NOME_USUÀRIO</b><br />
 
 Coloque seu usuário em NOME-USUÀRIO<br />
 
 Definir a senha pra seu usuário.<br />
-#passwd NOME_USUÀRIO<br />
+#<b>passwd NOME_USUÀRIO</b><br />
 Digite a senha e repita. <br />
 
 Vamos adicionar seu nome de usuário ao arquivo sudoers para te dar poder sobre o sistema. <br />
-# EDITOR=/usr/bin/nano visudo<br />
+#<b>EDITOR=/usr/bin/nano visudo</b><br />
 
 Localize e descomente  %wheel ALL=(ALL) ALL <br />
 E adicione SEU_USUÀRIO ALL=(ALL) ALL <br />
@@ -248,13 +248,13 @@ Salve e saia.<br />
 http://www.ostechnix.com/wp-content/uploads/2016/02/root@server_008.jpg<br />
 
 Vamos instalar os utilitários de audio<br />
-#pacman -S alsa-utils pulseaudio pavucontrol<br />
+#<b>pacman -S alsa-utils pulseaudio pavucontrol</b><br />
 
 Agora vamos instalar o Xorg para poder instalar uma interface gráfica. <br />
-#pacman -S xorg-server xorg-xinit<br />
-#pacman -S xorg-twm xorg-xclock xterm #(Opicional)<br />
+#<b>pacman -S xorg-server xorg-xinit</b><br />
+#<b>pacman -S xorg-twm xorg-xclock xterm #(Opicional)</b><br />
 Instalar o driver de video:<br />
-#pacman -S mesa lib32-mesa xf86-video-intel<br />
+#<b>pacman -S mesa lib32-mesa xf86-video-intel</b><br />
 									</li>
 							
 									</ul>
@@ -275,35 +275,43 @@ Instalar o driver de video:<br />
 								<header class="major">
 									<h2>Ambiente gráfico e personalização</h2>
 									<p>Instalando o XFCE4, LightDM e pacotes extras
-#pacman -S xfce4 xfce4-goodies lightdm lightdm-gtk-greeter networkmanager network-manager-applet<br />
+#<b>pacman -S xfce4 xfce4-goodies lightdm lightdm-gtk-greeter networkmanager network-manager-applet</b><br />
 
 Habilite o LightDM<br />
-#systemctl enable lightdm<br />
+#<b>systemctl enable lightdm</b><br />
 Habilite o NetworkManager<br />
-#systemctl enable NetworkManager<br />
+#<b>systemctl enable NetworkManager</b><br />
 
-#reboot<br />
+#<b>reboot</b><br />
 
 Pronto............O resto é com você.<br /> 
 Se quer usar um browser leve eu indico o opera.<br />
-#pacman -S opera<br />
+#<b>pacman -S opera</b><br />
+
+Um player para mp3 e outros formatos eu indico o Quodlibet
+#<b>pacman -S quodlibet</b> 
 
 Se quizer expandir suas opções de pacotes instale também o yaourt (repositórios dos usuários)<br />
-# nano /etc/pacman.conf<br />
+#<b>nano /etc/pacman.conf</b><br />
 Adicione <br />
 [archlinuxfr]<br />
 SigLevel = Never
 Server = http://repo.archlinux.fr/$arch<br />
 
+
 Salve com ctrl+o e saia com ctrl+x<br />
 Pastas da home<br />
-pacman -S xdg-user-dirs<br />
+<b>pacman -S xdg-user-dirs</b><br />
 Depois basta rodar o seguinte comando no terminal:<br />
-xdg-user-dirs-update<br />
+<b>xdg-user-dirs-update</b><br />
 
-#pacman -Sy yaourt<br />
+#<b>pacman -Sy yaourt</b><br />
 #yaourt xfce4-hardware-monitor-plugin<br />
-#sudo pacman -S mpd mpc ncmpcpp<br />
+#<b>yaourt -S numix-icon-theme-pack-git</b>
+#<b>yaourt -S gtk-arc-flatabulous-theme-git</b> 
+#<b>yaourt -S adwaita-icon-theme</b>
+#<b>yaourt -S adwaita-x-dark-and-light-theme</b>
+#<b>sudo pacman -S mpd mpc ncmpcpp</b><br />
 ==> Configuring MPD <==<br />
 You need to create a /home/username/.mpd folder first<br />
 
