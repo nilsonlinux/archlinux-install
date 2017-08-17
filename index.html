@@ -1,8 +1,5 @@
 <!DOCTYPE HTML>
-<!-- BEGIN: Powered by Supercounters.com -->
-<center><script type="text/javascript" src="//widget.supercounters.com/ssl/tab.js"></script><script type="text/javascript">var sc_tab_var = sc_tab_var || [];sc_tab(1432736,"bottom","center")</script><br><noscript><a href="http://www.supercounters.com/">Tumblr Online Counter</a></noscript>
-</center>
-<!-- END: Powered by Supercounters.com -->
+
 
 <!--
 	Instale o Archlinux facilmente.
@@ -57,14 +54,14 @@
 										</a>Após o download da iso vamos criar o nosso cd/dvd de instalação do archlinux.<br />
 										Se você já possue um sistema linux instalado aconselho a criar a midia de instalação pelo nosso querido terminal caso seja um pendrive.<br />				
 										1º passo: identificar o dispositivo.<br />
-										# <b>fdisk -l</b><br />
+										# <b><basefont color="#F30808">fdisk -l</font></b><br />
 
 										Seu pendrive deve aparecer na lista, de acordo com sua capacidade, exemplo: 8gb deve ter uns 7.5GB como no meu caso.<br />
 										
 										/dev/sdb; ou
 										/dev/sdc (no caso de você usar um hd externo ou mais de um pendrive)<br />
 										2º passo: formatar o dispositivo.<br />
-										# <b>mkfs.vfat /dev/sdx</b> -I<br />
+										# <b><basefont color="#FF0000">mkfs.vfat /dev/sdx</font></b> -I<br />
 										O x representa a letra de teu dispositivo!<br />
 										3º passo: certifique-se do caminho da imagem .iso que você irá gravar. Se você está logado no terminal na sua pasta de usuário, dê o comando "ls". Ele irá mostrar se sua .iso já está nesta pasta, se já estiver, prossiga para o próximo passo.<br />
 										No 1º passo tu já identificou o dispositivo usb, no 2º tu o formatou, agora tu vais gravar a imagem para o mesmo destino, que deve ser o caminho abaixo:<br />
@@ -117,8 +114,8 @@ http://www.ostechnix.com/wp-content/uploads/2017/03/VirtualBox_Arch-Linux-2017_0
 
 Agora vamos formatar as partições.<br />
 
-#<b>mkfs.ext4</b> /dev/sda1   (Para formatar nossa partição / Raiz)<br />
-#<b>mkfs.ext4</b> /dev/sda5    (Para formatar nossa partição /home )<br />
+#<b>mkfs.ext4 /dev/sda1</b>   (Para formatar nossa partição / Raiz)<br />
+#<b><i>mkfs.ext4 /dev/sda5</i></b>    (Para formatar nossa partição /home )<br />
 
 #<b>mkswap /dev/sda2</b>   (Para formatar nossa Swap)<br />
 #<b>swapon /dev/sda2</b>   (Para ativar a Swap)<br />
