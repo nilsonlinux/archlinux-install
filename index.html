@@ -312,6 +312,35 @@ Depois basta rodar o seguinte comando no terminal:<br />
 #<b>yaourt -S smtube smplayer (Browser leve para pesquisa de vídeos do youtube + Smplayer para visualização)</b><br />
 #<b>yaourt -S gis-weather (Whidget para previsão do tempo)</b><br />
 										
+Colocar powerline no Bash:
+
+
+<b>$sudo pacman -S powerline powerline-fonts</b><br />
+
+
+
+Adicionar estas linhas aqui no final do .bashrc</b><br />
+
+$<b>nano .bashrc</b><br />
+
+
+
+<b>if [ -f /usr/bin/powerline-daemon ]; then</b><br />
+
+ <b>powerline-daemon -q</b><br />
+
+ <b>POWERLINE_BASH_CONTINUATION=1</b><br />
+
+ <b>POWERLINE_BASH_SELECT=1</b><br />
+
+ <b>. /usr/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh</b><br />
+
+<b>fi</b><br />
+
+
+
+<b>salva e saia, depois abra um novo terminal e já estará com o powerline: <br />										
+										
 #<b>sudo pacman -S mpd mpc ncmpcpp</b><br />
 ==> Configuring MPD <==<br />
 You need to create a /home/username/.mpd folder first<br />
