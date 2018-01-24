@@ -141,7 +141,7 @@ Para verificar o arquivo criado rode o comando .<br />
 http://www.ostechnix.com/wp-content/uploads/2017/03/VirtualBox_Arch-Linux-2017_03_03_2017_19_33_53.png<br />
 
 Agora é hora de configurar a base de nosso sistema que acabamos de baixar.<br />
-#<b>arch-chroot /mnt /bin/bash</b><br />
+#<b>arch-chroot /mnt</b><br />
 
 Uma vez executado esse comando passaremos para dentro do nosso sistema e não mais o live-CD<br />
 
@@ -161,8 +161,7 @@ e adicione <br />
 <b>LANG=pt_BR.UTF-8</b>   (Salve com Ctrl+O e saia com Ctrl+x)<br />
 
 Configurando fuso horário de seu sistema.<br />
-#ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime<br />
-#<b>ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/timezone</b><br />
+#ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime<br />
 
 Para validar use o comando<br />
 #<b>hwclock --systohc --utc</b><br />
@@ -236,7 +235,7 @@ Definir a senha pra seu usuário.<br />
 Digite a senha e repita. <br />
 
 Vamos adicionar seu nome de usuário ao arquivo sudoers para te dar poder sobre o sistema. <br />
-#<b>EDITOR=/usr/bin/nano visudo</b><br />
+#<b>EDITOR=nano visudo</b><br />
 
 Localize e descomente  %wheel ALL=(ALL) ALL <br />
 E adicione SEU_USUÀRIO ALL=(ALL) ALL <br />
